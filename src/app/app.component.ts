@@ -8,6 +8,7 @@ import {ApiService} from './api.service';
     providers: [ApiService]
 })
 export class AppComponent {
+    loading = false;
     dataModel: any = {
         id: '',
         title: '',
@@ -25,6 +26,7 @@ export class AppComponent {
 
     saveClick() {
         const that = this;
+        that.loading = true;
 
         if (that.dataModel.id) {
             that.updateNotepad();
@@ -41,6 +43,7 @@ export class AppComponent {
             that.dataModel.notes = that.simplifyNotes(response.files);
 
             that.localCaching();
+            that.loading = false;
         });
     }
 
@@ -65,11 +68,13 @@ export class AppComponent {
             that.dataModel.notes = that.simplifyNotes(response.files);
 
             that.localCaching();
+            that.loading = false;
         });
     }
 
     deleteNote(index) {
         const that = this;
+        that.loading = true;
 
         const data = {
             title: that.dataModel.title,
@@ -83,6 +88,7 @@ export class AppComponent {
             that.dataModel.notes = that.simplifyNotes(response.files);
 
             that.localCaching();
+            that.loading = false;
         });
     }
 
@@ -123,11 +129,14 @@ export class AppComponent {
             that.dataModel.notes = that.simplifyNotes(response.files);
 
             that.localCaching();
+            that.loading = false;
         });
     }
 
     deleteNotepad() {
         const that = this;
+        that.loading = true;
+
 
         that.api.deleteNotepad(that.dataModel.id).then((response: any) => {
             that.dataModel = {
@@ -137,6 +146,7 @@ export class AppComponent {
             };
 
             localStorage.removeItem('cache');
+            that.loading = false;
         });
     }
 

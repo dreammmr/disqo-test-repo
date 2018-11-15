@@ -8,7 +8,7 @@ export class ApiService {
     apiUrl: string;
 
     constructor(private http: HttpClient) {
-        this.accessToken = '9933cd50d25fb92736dc21bc0d9d0a9f50c37c89';
+        this.accessToken = 'dcdc3129c440739ca873f6dabb5cbaf5ba7e50e6';
         this.apiUrl = 'https://api.github.com';
     }
 
