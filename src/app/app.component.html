@@ -15,27 +15,18 @@
       <div class="add-note-container">
         <h3>My Notes</h3>
 
-        <input type="text" maxlength="255" placeholder="Enter note title..." [(ngModel)]="noteModel.title">
-        <textarea maxlength="1000" placeholder="Enter note..." [(ngModel)]="noteModel.note"></textarea>
-        <button>Add</button>
+        <input type="text" maxlength="255" required placeholder="Enter note title..." [(ngModel)]="noteModel.title" #noteTitle="ngModel">
+        <textarea maxlength="1000" required placeholder="Enter note..." [(ngModel)]="noteModel.note" #noteText="ngModel"></textarea>
+        <button [disabled]="noteText.invalid || noteTitle.invalid" (click)="createNote()">Add</button>
       </div>
       <div class="added-notes-container">
-        <div class="added-container">
+        <div class="added-container" *ngFor="let note of dataModel.notes; let i = index;">
           <div class="added-container-input-fields">
-            <input type="text" placeholder="Enter note title...">
-            <textarea placeholder="Enter note..."></textarea>
+            <input type="text" [value]="note.title" placeholder="Enter note title...">
+            <textarea [value]="note.note" placeholder="Enter note..."></textarea>
           </div>
           <div>
-            <button>Delete</button>
-          </div>
-        </div>
-        <div class="added-container">
-          <div class="added-container-input-fields">
-            <input type="text" placeholder="Enter note title...">
-            <textarea placeholder="Enter note..."></textarea>
-          </div>
-          <div>
-            <button>Delete</button>
+            <button *ngIf="dataModel.notes.length > 1" (click)="deleteNote(i)">Delete</button>
           </div>
         </div>
       </div>

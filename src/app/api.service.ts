@@ -8,7 +8,7 @@ export class ApiService {
     apiUrl: string;
 
     constructor(private http: HttpClient) {
-        this.accessToken = '0affb05227288b2411a44571c6e4405ea33e9018';
+        this.accessToken = '9933cd50d25fb92736dc21bc0d9d0a9f50c37c89';
         this.apiUrl = 'https://api.github.com';
     }
 
@@ -38,15 +38,41 @@ export class ApiService {
         });
     }
 
-    readNotepad(data) {
+    updateNotepad(gistId, data) {
+        const that = this;
+        return new Promise((resolve) => {
 
+            const req = {
+                'description': data.title,
+                'files': data.notes
+            };
+
+            const httpOptions = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'token ' + that.accessToken
+                }
+            };
+
+            that.http.patch(that.apiUrl + '/gists/' + gistId, req, httpOptions).toPromise().then(function (response) {
+                resolve(response);
+            });
+        });
     }
 
-    updateNotepad(data) {
+    deleteNotepad(gistId) {
+        const that = this;
+        return new Promise((resolve) => {
+            const httpOptions = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'token ' + that.accessToken
+                }
+            };
 
-    }
-
-    deleteNotepad(data) {
-
+            that.http.delete(that.apiUrl + '/gists/' + gistId, httpOptions).toPromise().then(function (response) {
+                resolve(response);
+            });
+        });
     }
 }
