@@ -9,6 +9,10 @@ import {ApiService} from './api.service';
 })
 export class AppComponent {
     loading = false;
+    errors: any = {
+        isset: false,
+        message: ''
+    };
     dataModel: any = {
         id: '',
         title: '',
@@ -21,12 +25,12 @@ export class AppComponent {
     };
 
     constructor(private api: ApiService) {
-        this.checkLocalCacking();
+        this.checkLocalCacking(); // Checking the local storage at the beginning.
     }
 
     saveClick() {
         const that = this;
-        that.loading = true;
+        that.loading = true; // Turning the loader on.
 
         if (that.dataModel.id) {
             that.updateNotepad();
@@ -40,10 +44,13 @@ export class AppComponent {
 
         that.api.createNotepad(that.dataModel.title).then((response: any) => {
             that.dataModel.id = response.id;
-            that.dataModel.notes = that.simplifyNotes(response.files);
+            that.dataModel.notes = that.simplifyNotes(response.files); // Transforming objects - into arrays.
 
             that.localCaching();
-            that.loading = false;
+            that.loading = false; // Turning the loader off.
+        }, (error) => {
+            that.errors.isset = true;
+            that.errors.message = error.message;
         });
     }
 
@@ -69,6 +76,9 @@ export class AppComponent {
 
             that.localCaching();
             that.loading = false;
+        }, (error) => {
+            that.errors.isset = true;
+            that.errors.message = error.message;
         });
     }
 
@@ -89,9 +99,15 @@ export class AppComponent {
 
             that.localCaching();
             that.loading = false;
+        }, (error) => {
+            that.errors.isset = true;
+            that.errors.message = error.message;
         });
     }
 
+    /** A function that turns array items into GitHub API params.
+     * @param files
+     */
     objectifyNotes(files: any) {
         const data = {};
 
@@ -104,6 +120,9 @@ export class AppComponent {
         return data;
     }
 
+    /** A function that turns GitHub API params into arrays -> for loop iterations.
+     * @param files
+     */
     simplifyNotes(files: any) {
         const data = [];
 
@@ -130,6 +149,9 @@ export class AppComponent {
 
             that.localCaching();
             that.loading = false;
+        }, (error) => {
+            that.errors.isset = true;
+            that.errors.message = error.message;
         });
     }
 
@@ -147,9 +169,15 @@ export class AppComponent {
 
             localStorage.removeItem('cache');
             that.loading = false;
+        }, (error) => {
+            that.errors.isset = true;
+            that.errors.message = error.message;
         });
     }
 
+    /** A function for checking whether local storage is empty or not.
+     * @param files
+     */
     checkLocalCacking() {
         const that = this;
         let cachedModel = localStorage.getItem('cache');
@@ -162,6 +190,9 @@ export class AppComponent {
         that.dataModel = cachedModel;
     }
 
+    /** This function is responsible for adding datas to local storage.
+     * @param files
+     */
     localCaching() {
         const that = this;
 
@@ -169,5 +200,15 @@ export class AppComponent {
             return;
         }
         localStorage.setItem('cache', JSON.stringify(that.dataModel));
+    }
+
+    /** Click function, that works on the toasts - just makes it to disappear.
+     * @param files
+     */
+    hideToast() {
+        const that = this;
+
+        that.errors.isset = false;
+        that.errors.message = '';
     }
 }

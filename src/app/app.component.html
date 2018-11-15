@@ -7,6 +7,10 @@
       </svg>
     </div>
 
+    <div class="toast-message" (click)="hideToast()" *ngIf="errors.isset">
+      {{errors.message}}
+    </div>
+
     <div class="notepad-title-container">
       <div class="notepad-input-field">
         <label>Notepad Title</label>
@@ -14,7 +18,7 @@
       </div>
       <div>
         <button [disabled]="title.invalid" (click)="saveClick()" disabled>Save</button>
-        <button *ngIf="dataModel.id" (click)="deleteNotepad()">Delete</button>
+        <button class="btn-danger" *ngIf="dataModel.id" (click)="deleteNotepad()">Delete</button>
       </div>
     </div>
     <div class="notes-container" *ngIf="dataModel.id">
@@ -23,7 +27,7 @@
 
         <input type="text" maxlength="255" required placeholder="Enter note title..." [(ngModel)]="noteModel.title" #noteTitle="ngModel">
         <textarea maxlength="1000" required placeholder="Enter note..." [(ngModel)]="noteModel.note" #noteText="ngModel"></textarea>
-        <button [disabled]="noteText.invalid || noteTitle.invalid" (click)="createNote()">Add</button>
+        <button class="btn-success" [disabled]="noteText.invalid || noteTitle.invalid" (click)="createNote()">Add</button>
       </div>
       <div class="added-notes-container">
         <div class="added-container" *ngFor="let note of dataModel.notes; let i = index;">
@@ -32,7 +36,7 @@
             <textarea [value]="note.note" [(ngModel)]="note.note" placeholder="Enter note..."></textarea>
           </div>
           <div>
-            <button *ngIf="dataModel.notes.length > 1" (click)="deleteNote(i)">Delete</button>
+            <button class="btn-danger" *ngIf="dataModel.notes.length > 1" (click)="deleteNote(i)">Delete</button>
           </div>
         </div>
       </div>

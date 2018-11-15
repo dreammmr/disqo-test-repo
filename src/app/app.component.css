@@ -69,6 +69,14 @@
     border: none;
 }
 
+.container button.btn-danger {
+    background-color: #ec3646;
+}
+
+.container button.btn-success {
+    background-color: #57b93e;
+}
+
 .container button[disabled] {
     opacity: 0.6;
 }
@@ -140,6 +148,20 @@
     .added-container-input-fields {
         width: auto !important;
     }
+}
+
+.toast-message {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #353535;
+    padding: 10px;
+    color: white;
+    max-width: 300px;
+    font-size: 14px;
+    word-break: break-word;
+    line-height: 20px;
+    cursor: pointer;
 }
 
 .loading {

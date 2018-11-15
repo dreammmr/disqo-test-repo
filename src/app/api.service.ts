@@ -14,7 +14,7 @@ export class ApiService {
 
     createNotepad(data) {
         const that = this;
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
 
             const req = {
                 'description': data,
@@ -32,15 +32,17 @@ export class ApiService {
                 }
             };
 
-            that.http.post(that.apiUrl + '/gists', req, httpOptions).toPromise().then(function (response) {
+            that.http.post(that.apiUrl + '/gists', req, httpOptions).toPromise().then((response) => {
                 resolve(response);
+            }, (error) => {
+                reject(error);
             });
         });
     }
 
     updateNotepad(gistId, data) {
         const that = this;
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
 
             const req = {
                 'description': data.title,
@@ -54,15 +56,17 @@ export class ApiService {
                 }
             };
 
-            that.http.patch(that.apiUrl + '/gists/' + gistId, req, httpOptions).toPromise().then(function (response) {
+            that.http.patch(that.apiUrl + '/gists/' + gistId, req, httpOptions).toPromise().then((response) => {
                 resolve(response);
+            }, (error) => {
+                reject(error);
             });
         });
     }
 
     deleteNotepad(gistId) {
         const that = this;
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             const httpOptions = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -70,8 +74,10 @@ export class ApiService {
                 }
             };
 
-            that.http.delete(that.apiUrl + '/gists/' + gistId, httpOptions).toPromise().then(function (response) {
+            that.http.delete(that.apiUrl + '/gists/' + gistId, httpOptions).toPromise().then((response) => {
                 resolve(response);
+            }, (error) => {
+                reject(error);
             });
         });
     }
