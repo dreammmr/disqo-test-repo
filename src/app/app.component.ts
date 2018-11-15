@@ -13,4 +13,9 @@ export class AppComponent {
         title: '',
         notes: []
     };
+
+    noteModel = {
+        title: '',
+        note: ''
+    };
 }

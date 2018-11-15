@@ -4,7 +4,7 @@
     <div class="notepad-title-container">
       <div class="notepad-input-field">
         <label>Notepad Title</label>
-        <input type="text" placeholder="My notepad title..." [(ngModel)]="dataModel.title" #title="ngModel">
+        <input type="text" maxlength="255" required placeholder="My notepad title..." [(ngModel)]="dataModel.title" #title="ngModel">
       </div>
       <div>
         <button>Save</button>
@@ -15,8 +15,8 @@
       <div class="add-note-container">
         <h3>My Notes</h3>
 
-        <input type="text" placeholder="Enter note title...">
-        <textarea placeholder="Enter note..."></textarea>
+        <input type="text" maxlength="255" placeholder="Enter note title..." [(ngModel)]="noteModel.title">
+        <textarea maxlength="1000" placeholder="Enter note..." [(ngModel)]="noteModel.note"></textarea>
         <button>Add</button>
       </div>
       <div class="added-notes-container">
