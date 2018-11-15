@@ -17,4 +17,100 @@
     border: 1px solid #ccc;
     background-color: white;
     border-radius: 5px;
+    padding: 20px;
+}
+
+.container .notepad-title-container {
+    display: flex;
+}
+
+.container .notepad-input-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.container .notepad-title-container button {
+    margin: 0 5px;
+}
+
+.container label {
+    margin-bottom: 5px;
+}
+
+.container input {
+    display: block;
+    width: 250px;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.container textarea {
+    display: block;
+    width: 250px;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    color: #333;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.container button {
+    background-color: #39ACDC;
+    padding: 8px 20px;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    border: none;
+}
+
+.container .notes-container {
+    margin-top: 30px;
+}
+
+.container .add-note-container {
+    max-width: 500px;
+}
+
+.container .add-note-container textarea {
+    height: 80px;
+}
+
+.container .add-note-container input, .container .add-note-container textarea {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.container .add-note-container button {
+    margin-top: 10px;
+}
+
+.container .add-note-container h3 {
+    font-size: 18px;
+}
+
+.container .added-container {
+    display: flex;
+    margin-top: 20px;
+}
+
+.container .added-container button {
+    margin-left: 20px;
+}
+
+.container .added-container-input-fields {
+    width: 500px
+}
+
+.container .added-container-input-fields input, .container .added-container-input-fields textarea {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.container .added-container-input-fields textarea {
+    height: 80px;
 }
