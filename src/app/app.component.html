@@ -7,8 +7,10 @@
       </svg>
     </div>
 
-    <div class="toast-message" (click)="hideToast()" *ngIf="errors.isset">
+    <div class="toast-message" *ngIf="errors.isset">
       {{errors.message}}
+
+      <i class="material-icons close-icon" (click)="hideToast()"> close </i>
     </div>
 
     <div class="notepad-title-container">
