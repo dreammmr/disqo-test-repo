@@ -7,11 +7,11 @@
         <input type="text" maxlength="255" required placeholder="My notepad title..." [(ngModel)]="dataModel.title" #title="ngModel">
       </div>
       <div>
-        <button>Save</button>
-        <button>Delete</button>
+        <button [disabled]="title.invalid" (click)="saveClick()" disabled>Save</button>
+        <button *ngIf="dataModel.id" (click)="deleteNotepad()">Delete</button>
       </div>
     </div>
-    <div class="notes-container">
+    <div class="notes-container" *ngIf="dataModel.id">
       <div class="add-note-container">
         <h3>My Notes</h3>
 

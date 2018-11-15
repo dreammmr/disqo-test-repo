@@ -18,4 +18,46 @@ export class AppComponent {
         title: '',
         note: ''
     };
+
+    constructor(private api: ApiService) {
+    }
+
+    saveClick() {
+        const that = this;
+
+        if (that.dataModel.id) {
+            that.updateNotepad();
+        } else {
+            that.createNotepad();
+        }
+    }
+
+    createNotepad() {
+        const that = this;
+
+        that.api.createNotepad(that.dataModel.title).then((response: any) => {
+            that.dataModel.id = response.id;
+            that.dataModel.notes = response.files;
+
+            that.localCaching();
+        });
+    }
+
+    updateNotepad() {
+        alert('update');
+    }
+
+    deleteNotepad() {
+
+    }
+
+    localCaching() {
+        const that = this;
+
+        if (!that.dataModel.id) {
+            return;
+        }
+
+        localStorage.setItem('cache', JSON.stringify(that.dataModel));
+    }
 }
