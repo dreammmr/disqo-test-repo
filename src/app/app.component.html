@@ -22,8 +22,8 @@
       <div class="added-notes-container">
         <div class="added-container" *ngFor="let note of dataModel.notes; let i = index;">
           <div class="added-container-input-fields">
-            <input type="text" [value]="note.title" placeholder="Enter note title...">
-            <textarea [value]="note.note" placeholder="Enter note..."></textarea>
+            <input type="text" [value]="note.title" [(ngModel)]="note.title" placeholder="Enter note title...">
+            <textarea [value]="note.note" [(ngModel)]="note.note" placeholder="Enter note..."></textarea>
           </div>
           <div>
             <button *ngIf="dataModel.notes.length > 1" (click)="deleteNote(i)">Delete</button>

@@ -47,7 +47,9 @@ export class AppComponent {
     createNote() {
         const that = this;
 
-        that.dataModel.notes.push(that.noteModel);
+        const notes = that.dataModel.notes;
+        notes.unshift(that.noteModel);
+
         that.noteModel = {
             title: '',
             note: ''
@@ -55,7 +57,7 @@ export class AppComponent {
 
         const data = {
             title: that.dataModel.title,
-            notes: that.objectifyNotes(that.dataModel.notes)
+            notes: that.objectifyNotes(notes)
         };
 
         that.api.updateNotepad(that.dataModel.id, data).then((response: any) => {
@@ -69,18 +71,16 @@ export class AppComponent {
     deleteNote(index) {
         const that = this;
 
-        that.dataModel.notes.splice(index, 1);
-
         const data = {
             title: that.dataModel.title,
             notes: that.objectifyNotes(that.dataModel.notes)
         };
 
+        data.notes[that.dataModel.notes[index].title] = null;
+
         that.api.updateNotepad(that.dataModel.id, data).then((response: any) => {
             that.dataModel.id = response.id;
             that.dataModel.notes = that.simplifyNotes(response.files);
-
-            debugger;
 
             that.localCaching();
         });
